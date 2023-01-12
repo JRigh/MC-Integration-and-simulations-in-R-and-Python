@@ -104,7 +104,7 @@ est = matrix(m*n, nrow = n, ncol = m)
 for(i in 1:n) {
   for(j in 1:m) {
     
-    # MC estimate of the integral
+    # Sum on all rows then we take the mean to get our final estimate
     est[i, j] = ((pi - 0) / m) * sum(g(runif(j, 0, pi))[j])
   }
   # MC estimate of the integral
