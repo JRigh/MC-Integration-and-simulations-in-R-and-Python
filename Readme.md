@@ -4,18 +4,19 @@ Example of MC integration in R programing.
 
 
 ```r
-pred.cv.mod1 <- pred.cv.mod2 <- numeric(n)
+g = function(x) {sin(x) + cos(x)}
+set.seed(2023)
+m = 10000
+fx = runif(m, 0, pi)
 
-for(i in 1:n) {
-  
-  # quadratic model
-  mod1 = lm(y ~ x, subset = -i)
-  pred.cv.mod1[i] = predict(mod1, data[i,])
-  
-  # quadratic model
-  mod2 = lm(y ~ x + I(x^2), subset = -i)
-  pred.cv.mod2[i] = predict(mod2, data[i,])
-}
+I_hat = ((pi - 0) / m) * sum(g(fx))  
+# [1] 2.047382
+
+se_I_hat = (pi / m) * sqrt(sum((g(fx) - I_hat)^2)) 
+# [1] 0.05000365
+
+c(I_hat - qnorm(1 - 0.05/2) * se_I_hat, I_hat + qnorm(1 - 0.05/2) * se_I_hat) 
+# [1] 1.949377 2.145387
 ```
 
 ![plot1R](/Assets/plot1R.png)
