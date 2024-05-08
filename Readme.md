@@ -1,13 +1,45 @@
 # Monte Carlo (MC) Integrations and Simulations
 
-Examples in R programing.
+Example of MC integration in R programing.
 
-We take an example of Poisson data (artificially generated) of size 20 and model the prior with a Gamma(2,2) distribution. We then sample from the posterior
-Gamma(19,22) and compute posterior quantities using direct sampling from the identified distribution. 
+
+```r
+pred.cv.mod1 <- pred.cv.mod2 <- numeric(n)
+
+for(i in 1:n) {
+  
+  # quadratic model
+  mod1 = lm(y ~ x, subset = -i)
+  pred.cv.mod1[i] = predict(mod1, data[i,])
+  
+  # quadratic model
+  mod2 = lm(y ~ x + I(x^2), subset = -i)
+  pred.cv.mod2[i] = predict(mod2, data[i,])
+}
+```
 
 ![plot1R](/assets/plot1R.png)
 
-We also show how to derive the Jeffreys prior, which is an improper prior but has the propriety of being weakly informative.
+Same example this time in Python for similar results.
+
+```python
+import pandas as pd
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.model_selection import LeaveOneOut, cross_val_score
+loocv1 = LeaveOneOut()
+
+# linear model
+mod1 = PolynomialFeatures(degree = 1, include_bias = False).fit_transform(xn)
+mod11 = LinearRegression().fit(mod1, yn)
+
+loocv1 = LeaveOneOut()
+scoresmod1 = cross_val_score(mod11, 
+                         mod1,
+                         yn, 
+                         scoring = 'neg_mean_squared_error',
+                         cv = loocv1)
+```
+
 
 ![plot1Py](/assets/plot1Py.png)
 
