@@ -48,9 +48,4 @@ Confidence Interval: [1.9145463438204295, 2.107836976277345]
 
 ![plot1Py](/Assets/plot1Py.png)
 
-Then using we show an example of multi-stage Gibbs sampling for a Poisson process with Gamma prior.
-
-![plotR2](/Assets/plotR2.png)
-
-Python implementation will be added soon.
 
