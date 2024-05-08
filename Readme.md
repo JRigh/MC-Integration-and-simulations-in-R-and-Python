@@ -18,7 +18,7 @@ for(i in 1:n) {
 }
 ```
 
-![plot1R](/assets/plot1R.png)
+![plot1R](/Assets/plot1R.png)
 
 Same example this time in Python for similar results.
 
@@ -41,11 +41,11 @@ scoresmod1 = cross_val_score(mod11,
 ```
 
 
-![plot1Py](/assets/plot1Py.png)
+![plot1Py](/Assets/plot1Py.png)
 
 Then using we show an example of multi-stage Gibbs sampling for a Poisson process with Gamma prior.
 
-![Rplot01.](/assets/Rplot01.png)
+![plotR2](/Assets/plotR2.png)
 
 Python implementation will be added soon.
 
