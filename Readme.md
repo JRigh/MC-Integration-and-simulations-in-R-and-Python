@@ -24,21 +24,25 @@ c(I_hat - qnorm(1 - 0.05/2) * se_I_hat, I_hat + qnorm(1 - 0.05/2) * se_I_hat)
 Same example this time in Python for similar results.
 
 ```python
-import pandas as pd
-from sklearn.preprocessing import PolynomialFeatures
-from sklearn.model_selection import LeaveOneOut, cross_val_score
-loocv1 = LeaveOneOut()
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import norm
 
-# linear model
-mod1 = PolynomialFeatures(degree = 1, include_bias = False).fit_transform(xn)
-mod11 = LinearRegression().fit(mod1, yn)
+def g(x):
+  return np.sin(x) + np.cos(x)
 
-loocv1 = LeaveOneOut()
-scoresmod1 = cross_val_score(mod11, 
-                         mod1,
-                         yn, 
-                         scoring = 'neg_mean_squared_error',
-                         cv = loocv1)
+np.random.seed(2023)
+m = 10000
+fx = np.random.uniform(0, np.pi, m)
+
+I_hat = ((np.pi - 0) / m) * np.sum(g(fx))
+# 2.0111916600488873
+
+se_I_hat = (np.pi / m) * np.sqrt(np.sum((g(fx) - I_hat)**2))
+# 0.049309740888497745
+
+confidence_interval = norm.interval(0.95, loc=I_hat, scale=se_I_hat/np.sqrt(m))
+Confidence Interval: [1.9145463438204295, 2.107836976277345]
 ```
 
 
